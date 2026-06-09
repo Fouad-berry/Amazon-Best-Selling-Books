@@ -118,4 +118,6 @@ See [`docs/looker_setup.md`](docs/looker_setup.md) for connection instructions.
 
 ## 📄 License
 
+Réalisé par Fouad MOUTAIROU
+
 MIT
