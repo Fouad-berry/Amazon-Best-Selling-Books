@@ -119,6 +119,6 @@ See [`docs/looker_setup.md`](docs/looker_setup.md) for connection instructions.
 ## 📄 License
 
 Réalisé par Fouad MOUTAIROU
-POrtfolio : https://portfolio-fouad.netlify.app/
+Portfolio : https://portfolio-fouad.netlify.app/
 
 MIT
