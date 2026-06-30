@@ -38,11 +38,17 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     # Clip rating
     df["Rating"] = df["Rating"].clip(0, 5)
 
-    # Fill missing Reviews with 0 (new books)
-    df["Reviews"] = df["Reviews"].fillna(0)
+    # Ensure non-negative prices
+    df["Price (USD)"] = df["Price (USD)"].clip(lower=0)
 
-    # Fill missing Weeks on List with 1
-    df["Weeks on List"] = df["Weeks on List"].fillna(1)
+    # Fill missing Reviews with 0 (new books) and clamp negatives
+    df["Reviews"] = df["Reviews"].fillna(0).clip(lower=0)
+
+    # Fill missing Weeks on List with 1 and clamp negatives
+    df["Weeks on List"] = df["Weeks on List"].fillna(1).clip(lower=1)
+
+    # Ensure non-negative Amazon BSR
+    df["Amazon BSR"] = df["Amazon BSR"].clip(lower=0)
 
     log.info("Cleaning done ✓")
     return df
