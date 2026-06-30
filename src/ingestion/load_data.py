@@ -15,9 +15,21 @@ log = logging.getLogger(__name__)
 RAW_PATH = Path(__file__).parents[2] / "data" / "raw" / "amazon_bestselling_books.csv"
 
 EXPECTED_COLUMNS = [
-    "Rank", "Title", "Author", "Category", "Sub-Genre", "Format",
-    "Price (USD)", "Rating", "Reviews", "Weeks on List", "Publisher",
-    "Year Published", "ISBN", "Amazon BSR", "Amazon URL",
+    "Rank",
+    "Title",
+    "Author",
+    "Category",
+    "Sub-Genre",
+    "Format",
+    "Price (USD)",
+    "Rating",
+    "Reviews",
+    "Weeks on List",
+    "Publisher",
+    "Year Published",
+    "ISBN",
+    "Amazon BSR",
+    "Amazon URL",
 ]
 
 VALID_CATEGORIES = {"Fiction", "Non-Fiction"}
@@ -34,13 +46,13 @@ def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:
     df = df[EXPECTED_COLUMNS]
 
     # Cast types
-    df["Rank"]           = df["Rank"].astype(int)
-    df["Price (USD)"]    = pd.to_numeric(df["Price (USD)"],    errors="coerce")
-    df["Rating"]         = pd.to_numeric(df["Rating"],         errors="coerce")
-    df["Reviews"]        = pd.to_numeric(df["Reviews"],        errors="coerce")
-    df["Weeks on List"]  = pd.to_numeric(df["Weeks on List"], errors="coerce")
+    df["Rank"] = df["Rank"].astype(int)
+    df["Price (USD)"] = pd.to_numeric(df["Price (USD)"], errors="coerce")
+    df["Rating"] = pd.to_numeric(df["Rating"], errors="coerce")
+    df["Reviews"] = pd.to_numeric(df["Reviews"], errors="coerce")
+    df["Weeks on List"] = pd.to_numeric(df["Weeks on List"], errors="coerce")
     df["Year Published"] = pd.to_numeric(df["Year Published"], errors="coerce")
-    df["Amazon BSR"]     = pd.to_numeric(df["Amazon BSR"],     errors="coerce")
+    df["Amazon BSR"] = pd.to_numeric(df["Amazon BSR"], errors="coerce")
 
     log.info(f"Loaded {len(df):,} rows × {len(df.columns)} columns")
     validate(df)

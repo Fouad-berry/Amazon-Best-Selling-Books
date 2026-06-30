@@ -12,6 +12,7 @@
 
 2. Upload these files to Google Drive:
    - `data/exports/books_looker.csv` (main dataset, 500 rows)
+   - `data/exports/agg_category.csv`
    - `data/exports/agg_genre.csv`
    - `data/exports/agg_format.csv`
    - `data/exports/agg_top_authors.csv`
@@ -24,8 +25,9 @@
 4. Suggested dashboard pages:
 
 | Page | Source | Chart types |
-|---|---|---|
+|---|---|---|---|
 | Overview | `books_looker.csv` | Scorecards, pie (category), bar (format) |
+| Category | `agg_category.csv` | Bar: avg price/rating by category |
 | Genre Deep-Dive | `agg_genre.csv` | Bar: book count, table: avg rating & reviews |
 | Price & Value | `agg_price_bucket.csv` | Bar: avg rating by price, scatter: price vs rating |
 | Publishers | `agg_publishers.csv` | Bar: titles, table with avg metrics |

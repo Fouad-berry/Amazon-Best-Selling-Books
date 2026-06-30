@@ -15,13 +15,13 @@ _PROJECT_ROOT = str(Path(__file__).parents[2])
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-from src.ingestion.load_data import load_raw
+from src.ingestion.load_data import load_raw  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 log = logging.getLogger(__name__)
 
 PROCESSED_PATH = Path(__file__).parents[2] / "data" / "processed" / "books_clean.csv"
-EXPORT_PATH    = Path(__file__).parents[2] / "data" / "exports"   / "books_looker.csv"
+EXPORT_PATH = Path(__file__).parents[2] / "data" / "exports" / "books_looker.csv"
 
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
@@ -98,9 +98,7 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     df["value_score"] = (df["Rating"] / df["Price (USD)"].replace(0, float("nan"))).round(4)
 
     # Engagement score: log10(reviews + 1) * rating
-    df["engagement_score"] = (
-        np.log10(df["Reviews"] + 1) * df["Rating"]
-    ).round(3)
+    df["engagement_score"] = (np.log10(df["Reviews"] + 1) * df["Rating"]).round(3)
 
     # Is Fiction flag
     df["is_fiction"] = (df["Category"] == "Fiction").astype(int)

@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 log = logging.getLogger(__name__)
 
 PROCESSED_PATH = Path(__file__).parents[2] / "data" / "processed" / "books_clean.csv"
-EXPORTS_DIR    = Path(__file__).parents[2] / "data" / "exports"
+EXPORTS_DIR = Path(__file__).parents[2] / "data" / "exports"
 
 
 def load_processed() -> pd.DataFrame:
@@ -22,16 +22,37 @@ def load_processed() -> pd.DataFrame:
 
 # ─── KPIs ─────────────────────────────────────────────────────────────────────
 
-def avg_price(df):       return round(df["Price (USD)"].mean(), 2)
-def avg_rating(df):      return round(df["Rating"].mean(), 2)
-def avg_reviews(df):     return round(df["Reviews"].mean(), 0)
-def avg_weeks(df):       return round(df["Weeks on List"].mean(), 1)
-def top_author(df):      return df.groupby("Author")["Rank"].count().idxmax()
-def top_publisher(df):   return df.groupby("Publisher")["Rank"].count().idxmax()
-def pct_fiction(df):     return round(df["is_fiction"].mean() * 100, 1)
+
+def avg_price(df):
+    return round(df["Price (USD)"].mean(), 2)
+
+
+def avg_rating(df):
+    return round(df["Rating"].mean(), 2)
+
+
+def avg_reviews(df):
+    return round(df["Reviews"].mean(), 0)
+
+
+def avg_weeks(df):
+    return round(df["Weeks on List"].mean(), 1)
+
+
+def top_author(df):
+    return df.groupby("Author")["Rank"].count().idxmax()
+
+
+def top_publisher(df):
+    return df.groupby("Publisher")["Rank"].count().idxmax()
+
+
+def pct_fiction(df):
+    return round(df["is_fiction"].mean() * 100, 1)
 
 
 # ─── Aggregated tables ────────────────────────────────────────────────────────
+
 
 def agg_by_category(df: pd.DataFrame) -> pd.DataFrame:
     return (
@@ -45,7 +66,8 @@ def agg_by_category(df: pd.DataFrame) -> pd.DataFrame:
             avg_weeks=("Weeks on List", "mean"),
             avg_bsr=("Amazon BSR", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
     )
 
 
@@ -61,7 +83,8 @@ def agg_by_genre(df: pd.DataFrame) -> pd.DataFrame:
             avg_weeks=("Weeks on List", "mean"),
             avg_engagement=("engagement_score", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
         .sort_values("book_count", ascending=False)
     )
 
@@ -77,7 +100,8 @@ def agg_by_format(df: pd.DataFrame) -> pd.DataFrame:
             avg_weeks=("Weeks on List", "mean"),
             pct_fiction=("is_fiction", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
         .sort_values("book_count", ascending=False)
     )
 
@@ -94,7 +118,8 @@ def agg_top_authors(df: pd.DataFrame) -> pd.DataFrame:
             avg_price=("Price (USD)", "mean"),
             avg_weeks=("Weeks on List", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
         .sort_values("titles_on_list", ascending=False)
         .head(30)
     )
@@ -112,7 +137,8 @@ def agg_top_publishers(df: pd.DataFrame) -> pd.DataFrame:
             avg_weeks=("Weeks on List", "mean"),
             avg_bsr=("Amazon BSR", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
         .sort_values("titles_on_list", ascending=False)
         .head(20)
     )
@@ -128,7 +154,8 @@ def agg_by_pub_era(df: pd.DataFrame) -> pd.DataFrame:
             avg_reviews=("Reviews", "mean"),
             avg_weeks=("Weeks on List", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
     )
 
 
@@ -142,23 +169,25 @@ def agg_by_price_bucket(df: pd.DataFrame) -> pd.DataFrame:
             avg_reviews=("Reviews", "mean"),
             avg_weeks=("Weeks on List", "mean"),
         )
-        .round(2).reset_index()
+        .round(2)
+        .reset_index()
     )
 
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
+
 
 def run_all():
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
     df = load_processed()
 
     tables = {
-        "agg_category.csv":     agg_by_category(df),
-        "agg_genre.csv":        agg_by_genre(df),
-        "agg_format.csv":       agg_by_format(df),
-        "agg_top_authors.csv":  agg_top_authors(df),
-        "agg_publishers.csv":   agg_top_publishers(df),
-        "agg_pub_era.csv":      agg_by_pub_era(df),
+        "agg_category.csv": agg_by_category(df),
+        "agg_genre.csv": agg_by_genre(df),
+        "agg_format.csv": agg_by_format(df),
+        "agg_top_authors.csv": agg_top_authors(df),
+        "agg_publishers.csv": agg_top_publishers(df),
+        "agg_pub_era.csv": agg_by_pub_era(df),
         "agg_price_bucket.csv": agg_by_price_bucket(df),
     }
 
