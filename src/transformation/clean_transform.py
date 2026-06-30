@@ -5,27 +5,23 @@ Clean and feature-engineer the Amazon Best-Selling Books dataset.
 """
 
 import logging
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
+_PROJECT_ROOT = str(Path(__file__).parents[2])
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
+
+from src.ingestion.load_data import load_raw
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 log = logging.getLogger(__name__)
 
-RAW_PATH       = Path(__file__).parents[2] / "data" / "raw"       / "amazon_bestselling_books.csv"
 PROCESSED_PATH = Path(__file__).parents[2] / "data" / "processed" / "books_clean.csv"
 EXPORT_PATH    = Path(__file__).parents[2] / "data" / "exports"   / "books_looker.csv"
-
-
-def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:
-    df = pd.read_csv(path)
-    df.columns = [c.strip() for c in df.columns]
-    for col in ["Price (USD)", "Rating", "Reviews", "Weeks on List",
-                "Year Published", "Amazon BSR"]:
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-    df["Rank"] = df["Rank"].astype(int)
-    return df
 
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
@@ -99,7 +95,7 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     # Value score: rating / price (higher = better value)
-    df["value_score"] = (df["Rating"] / df["Price (USD)"]).round(4)
+    df["value_score"] = (df["Rating"] / df["Price (USD)"].replace(0, float("nan"))).round(4)
 
     # Engagement score: log10(reviews + 1) * rating
     df["engagement_score"] = (

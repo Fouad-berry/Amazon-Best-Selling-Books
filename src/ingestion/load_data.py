@@ -43,11 +43,11 @@ def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:
     df["Amazon BSR"]     = pd.to_numeric(df["Amazon BSR"],     errors="coerce")
 
     log.info(f"Loaded {len(df):,} rows × {len(df.columns)} columns")
-    _validate(df)
+    validate(df)
     return df
 
 
-def _validate(df: pd.DataFrame) -> None:
+def validate(df: pd.DataFrame) -> None:
     nulls = df.isnull().sum()
     nulls = nulls[nulls > 0]
     if not nulls.empty:
