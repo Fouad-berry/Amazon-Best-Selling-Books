@@ -116,13 +116,21 @@ def save(df: pd.DataFrame) -> None:
     log.info(f"Saved Looker export → {EXPORT_PATH}")
 
 
-def run_pipeline() -> pd.DataFrame:
-    df = load_raw()
-    df = clean(df)
-    df = feature_engineering(df)
-    save(df)
-    log.info(f"Pipeline complete — {len(df):,} books.")
-    return df
+def run_pipeline() -> pd.DataFrame | None:
+    try:
+        df = load_raw()
+        df = clean(df)
+        df = feature_engineering(df)
+        save(df)
+        log.info(f"Pipeline complete — {len(df):,} books.")
+        return df
+    except FileNotFoundError as e:
+        log.error(f"File not found: {e}")
+    except pd.errors.EmptyDataError:
+        log.error("CSV file is empty.")
+    except Exception as e:
+        log.error(f"Pipeline failed: {e}")
+    return None
 
 
 if __name__ == "__main__":

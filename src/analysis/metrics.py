@@ -179,7 +179,12 @@ def agg_by_price_bucket(df: pd.DataFrame) -> pd.DataFrame:
 
 def run_all():
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    df = load_processed()
+
+    try:
+        df = load_processed()
+    except FileNotFoundError as e:
+        log.error(f"Processed data not found. Run clean_transform.py first: {e}")
+        return
 
     tables = {
         "agg_category.csv": agg_by_category(df),
