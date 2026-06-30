@@ -39,7 +39,7 @@ def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:
     df["Price (USD)"]    = pd.to_numeric(df["Price (USD)"],    errors="coerce")
     df["Rating"]         = pd.to_numeric(df["Rating"],         errors="coerce")
     df["Reviews"]        = pd.to_numeric(df["Reviews"],        errors="coerce")
-    df["Weeks on List"]  = pd.to_numeric(df["Weeks on List)"],  errors="coerce") if "Weeks on List)" in df.columns else pd.to_numeric(df["Weeks on List"], errors="coerce")
+    df["Weeks on List"]  = pd.to_numeric(df["Weeks on List"], errors="coerce")
     df["Year Published"] = pd.to_numeric(df["Year Published"], errors="coerce")
     df["Amazon BSR"]     = pd.to_numeric(df["Amazon BSR"],     errors="coerce")
 

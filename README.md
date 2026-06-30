@@ -16,7 +16,6 @@ amazon-books-analysis/
 │
 ├── notebooks/
 │   ├── 01_exploration.ipynb                  # EDA — distributions, nulls, correlations
-│   ├── 02_cleaning.ipynb                     # Cleaning walkthrough
 │   └── 03_analysis.ipynb                     # Business insights & visualisations
 │
 ├── sql/
@@ -34,14 +33,13 @@ amazon-books-analysis/
 ├── looker/
 │   ├── models/amazon_books.model.lkml
 │   ├── views/amazon_books.view.lkml
-│   ├── explores/books_explore.lkml
-│   └── dashboards/books_overview.dashboard.lookml
+│   ├── explore/books_explore.lkml
+│   └── dashboard/books_overview.dashboard.lookml
 │
 ├── docs/
 │   ├── data_dictionary.md                    # Column descriptions & types
 │   └── looker_setup.md                       # Connect Looker to this project
 │
-├── .github/workflows/ci.yml
 ├── requirements.txt
 ├── .gitignore
 └── README.md
