@@ -7,7 +7,6 @@ Compute KPIs and aggregated export tables for Looker.
 import logging
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")

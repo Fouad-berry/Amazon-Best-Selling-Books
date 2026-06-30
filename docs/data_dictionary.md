@@ -2,7 +2,7 @@
 
 ## Source: `amazon_bestselling_books.csv`
 
-500 rows · 14 usable columns + 8 engineered columns
+500 rows · 14 usable columns + 9 engineered columns
 
 ---
 

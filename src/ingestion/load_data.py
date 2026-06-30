@@ -21,7 +21,6 @@ EXPECTED_COLUMNS = [
 ]
 
 VALID_CATEGORIES = {"Fiction", "Non-Fiction"}
-VALID_FORMATS    = {"Paperback", "Hardcover", "Audiobook", "Kindle Edition", "Board Book"}
 
 
 def load_raw(path: Path = RAW_PATH) -> pd.DataFrame:

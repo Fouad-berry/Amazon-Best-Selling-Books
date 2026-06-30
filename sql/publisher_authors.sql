@@ -24,7 +24,7 @@ SELECT
     ROUND(AVG(rating), 2)               AS avg_rating,
     SUM(reviews)                        AS total_reviews,
     ROUND(AVG(price_usd), 2)            AS avg_price,
-    GROUP_CONCAT(title, ' | ')          AS titles
+    STRING_AGG(title, ' | ')            AS titles
 FROM books
 GROUP BY author
 HAVING COUNT(*) > 1
