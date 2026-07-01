@@ -6,7 +6,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
 from src.ingestion.load_data import EXPECTED_COLUMNS, VALID_CATEGORIES, VALID_FORMATS, load_raw
-from src.transformation.clean_transform import clean, feature_engineering
+from src.transformation.clean_transform import COLUMN_RENAME, clean, feature_engineering
 
 
 @pytest.fixture
@@ -48,17 +48,24 @@ def test_validate_positive_price(df):
 
 def test_clean_drops_amazon_url(df):
     cleaned = clean(df)
-    assert "Amazon URL" not in cleaned.columns
+    assert "amazon_url" not in cleaned.columns
+
+
+def test_clean_renames_columns(df):
+    cleaned = clean(df)
+    for old, new in COLUMN_RENAME.items():
+        if old != "Amazon URL":
+            assert new in cleaned.columns, f"Missing column: {new}"
 
 
 def test_clean_fills_reviews(df):
     cleaned = clean(df)
-    assert cleaned["Reviews"].isnull().sum() == 0
+    assert cleaned["reviews"].isnull().sum() == 0
 
 
 def test_clean_fills_weeks(df):
     cleaned = clean(df)
-    assert cleaned["Weeks on List"].isnull().sum() == 0
+    assert cleaned["weeks_on_list"].isnull().sum() == 0
 
 
 def test_feature_engineering_adds_columns(df):

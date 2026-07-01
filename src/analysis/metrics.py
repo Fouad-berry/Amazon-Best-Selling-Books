@@ -24,27 +24,27 @@ def load_processed() -> pd.DataFrame:
 
 
 def avg_price(df):
-    return round(df["Price (USD)"].mean(), 2)
+    return round(df["price_usd"].mean(), 2)
 
 
 def avg_rating(df):
-    return round(df["Rating"].mean(), 2)
+    return round(df["rating"].mean(), 2)
 
 
 def avg_reviews(df):
-    return round(df["Reviews"].mean(), 0)
+    return round(df["reviews"].mean(), 0)
 
 
 def avg_weeks(df):
-    return round(df["Weeks on List"].mean(), 1)
+    return round(df["weeks_on_list"].mean(), 1)
 
 
 def top_author(df):
-    return df.groupby("Author")["Rank"].count().idxmax()
+    return df.groupby("author")["rank"].count().idxmax()
 
 
 def top_publisher(df):
-    return df.groupby("Publisher")["Rank"].count().idxmax()
+    return df.groupby("publisher")["rank"].count().idxmax()
 
 
 def pct_fiction(df):
@@ -56,15 +56,15 @@ def pct_fiction(df):
 
 def agg_by_category(df: pd.DataFrame) -> pd.DataFrame:
     return (
-        df.groupby("Category")
+        df.groupby("category")
         .agg(
-            book_count=("Rank", "count"),
-            avg_rank=("Rank", "mean"),
-            avg_price=("Price (USD)", "mean"),
-            avg_rating=("Rating", "mean"),
-            avg_reviews=("Reviews", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
-            avg_bsr=("Amazon BSR", "mean"),
+            book_count=("rank", "count"),
+            avg_rank=("rank", "mean"),
+            avg_price=("price_usd", "mean"),
+            avg_rating=("rating", "mean"),
+            avg_reviews=("reviews", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
+            avg_bsr=("amazon_bsr", "mean"),
         )
         .round(2)
         .reset_index()
@@ -73,14 +73,14 @@ def agg_by_category(df: pd.DataFrame) -> pd.DataFrame:
 
 def agg_by_genre(df: pd.DataFrame) -> pd.DataFrame:
     return (
-        df.groupby(["Category", "Sub-Genre"])
+        df.groupby(["category", "sub_genre"])
         .agg(
-            book_count=("Rank", "count"),
-            avg_rank=("Rank", "mean"),
-            avg_price=("Price (USD)", "mean"),
-            avg_rating=("Rating", "mean"),
-            avg_reviews=("Reviews", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
+            book_count=("rank", "count"),
+            avg_rank=("rank", "mean"),
+            avg_price=("price_usd", "mean"),
+            avg_rating=("rating", "mean"),
+            avg_reviews=("reviews", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
             avg_engagement=("engagement_score", "mean"),
         )
         .round(2)
@@ -91,13 +91,13 @@ def agg_by_genre(df: pd.DataFrame) -> pd.DataFrame:
 
 def agg_by_format(df: pd.DataFrame) -> pd.DataFrame:
     return (
-        df.groupby("Format")
+        df.groupby("format")
         .agg(
-            book_count=("Rank", "count"),
-            avg_price=("Price (USD)", "mean"),
-            avg_rating=("Rating", "mean"),
-            avg_reviews=("Reviews", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
+            book_count=("rank", "count"),
+            avg_price=("price_usd", "mean"),
+            avg_rating=("rating", "mean"),
+            avg_reviews=("reviews", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
             pct_fiction=("is_fiction", "mean"),
         )
         .round(2)
@@ -108,15 +108,15 @@ def agg_by_format(df: pd.DataFrame) -> pd.DataFrame:
 
 def agg_top_authors(df: pd.DataFrame) -> pd.DataFrame:
     return (
-        df.groupby("Author")
+        df.groupby("author")
         .agg(
-            titles_on_list=("Rank", "count"),
-            best_rank=("Rank", "min"),
-            avg_rank=("Rank", "mean"),
-            avg_rating=("Rating", "mean"),
-            total_reviews=("Reviews", "sum"),
-            avg_price=("Price (USD)", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
+            titles_on_list=("rank", "count"),
+            best_rank=("rank", "min"),
+            avg_rank=("rank", "mean"),
+            avg_rating=("rating", "mean"),
+            total_reviews=("reviews", "sum"),
+            avg_price=("price_usd", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
         )
         .round(2)
         .reset_index()
@@ -127,15 +127,15 @@ def agg_top_authors(df: pd.DataFrame) -> pd.DataFrame:
 
 def agg_top_publishers(df: pd.DataFrame) -> pd.DataFrame:
     return (
-        df.groupby("Publisher")
+        df.groupby("publisher")
         .agg(
-            titles_on_list=("Rank", "count"),
-            avg_rank=("Rank", "mean"),
-            avg_rating=("Rating", "mean"),
-            avg_reviews=("Reviews", "mean"),
-            avg_price=("Price (USD)", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
-            avg_bsr=("Amazon BSR", "mean"),
+            titles_on_list=("rank", "count"),
+            avg_rank=("rank", "mean"),
+            avg_rating=("rating", "mean"),
+            avg_reviews=("reviews", "mean"),
+            avg_price=("price_usd", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
+            avg_bsr=("amazon_bsr", "mean"),
         )
         .round(2)
         .reset_index()
@@ -148,11 +148,11 @@ def agg_by_pub_era(df: pd.DataFrame) -> pd.DataFrame:
     return (
         df.groupby("pub_era", observed=True)
         .agg(
-            book_count=("Rank", "count"),
-            avg_rank=("Rank", "mean"),
-            avg_rating=("Rating", "mean"),
-            avg_reviews=("Reviews", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
+            book_count=("rank", "count"),
+            avg_rank=("rank", "mean"),
+            avg_rating=("rating", "mean"),
+            avg_reviews=("reviews", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
         )
         .round(2)
         .reset_index()
@@ -163,11 +163,11 @@ def agg_by_price_bucket(df: pd.DataFrame) -> pd.DataFrame:
     return (
         df.groupby("price_bucket", observed=True)
         .agg(
-            book_count=("Rank", "count"),
-            avg_rank=("Rank", "mean"),
-            avg_rating=("Rating", "mean"),
-            avg_reviews=("Reviews", "mean"),
-            avg_weeks=("Weeks on List", "mean"),
+            book_count=("rank", "count"),
+            avg_rank=("rank", "mean"),
+            avg_rating=("rating", "mean"),
+            avg_reviews=("reviews", "mean"),
+            avg_weeks=("weeks_on_list", "mean"),
         )
         .round(2)
         .reset_index()

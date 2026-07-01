@@ -64,10 +64,10 @@ Set Looker connection name to `amazon_books_bq`.
 
 | Metric | Formula |
 |---|---|
-| Avg rating | AVG(Rating) |
-| Avg price | AVG(Price) |
-| Avg reviews | AVG(Reviews) |
-| Avg weeks on list | AVG(Weeks on List) |
-| Value score | AVG(value_score) = AVG(Rating / Price) |
-| Engagement score | AVG(log10(Reviews+1) × Rating) |
+| Avg rating | AVG(rating) |
+| Avg price | AVG(price_usd) |
+| Avg reviews | AVG(reviews) |
+| Avg weeks on list | AVG(weeks_on_list) |
+| Value score | AVG(value_score) = AVG(rating / price_usd) |
+| Engagement score | AVG(log10(reviews+1) × rating) |
 | % Fiction | AVG(is_fiction) × 100 |
