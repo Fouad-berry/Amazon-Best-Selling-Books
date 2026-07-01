@@ -38,6 +38,11 @@
 
 ## Option B — BigQuery
 
+> Requires `google-cloud-bigquery`. Install with:
+> ```bash
+> pip install google-cloud-bigquery
+> ```
+
 ```python
 from google.cloud import bigquery
 import pandas as pd

@@ -6,7 +6,7 @@ SELECT
     sub_genre,
     category,
     COUNT(*)                            AS book_count,
-    ROUND(AVG(rank), 1)                 AS avg_rank,
+    ROUND(AVG("rank"), 1)               AS avg_rank,
     ROUND(AVG(price_usd), 2)            AS avg_price,
     ROUND(AVG(rating), 2)               AS avg_rating,
     ROUND(AVG(reviews), 0)              AS avg_reviews,

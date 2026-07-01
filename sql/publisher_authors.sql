@@ -5,7 +5,7 @@
 SELECT
     publisher,
     COUNT(*)                            AS titles_on_list,
-    ROUND(AVG(rank), 1)                 AS avg_rank,
+    ROUND(AVG("rank"), 1)               AS avg_rank,
     ROUND(AVG(rating), 2)               AS avg_rating,
     ROUND(AVG(reviews), 0)              AS avg_reviews,
     ROUND(AVG(price_usd), 2)            AS avg_price,
@@ -20,7 +20,7 @@ LIMIT 15;
 SELECT
     author,
     COUNT(*)                            AS titles_on_list,
-    MIN(rank)                           AS best_rank,
+    MIN("rank")                         AS best_rank,
     ROUND(AVG(rating), 2)               AS avg_rating,
     SUM(reviews)                        AS total_reviews,
     ROUND(AVG(price_usd), 2)            AS avg_price,

@@ -28,7 +28,7 @@ ORDER BY price_bucket;
 
 -- 3. Best value books (highest value_score, min 1000 reviews)
 SELECT
-    rank, title, author, sub_genre, format,
+    "rank", title, author, sub_genre, format,
     price_usd, rating, reviews,
     ROUND(value_score, 4)               AS value_score
 FROM books

@@ -1,9 +1,15 @@
 -- create_tables.sql
--- DDL for DuckDB (local) or BigQuery.
--- DuckDB: duckdb books.duckdb < sql/create_tables.sql
+-- DDL for DuckDB.
+-- Usage: duckdb books.duckdb < sql/create_tables.sql
+--
+-- For BigQuery, uncomment the OPTIONS block and adjust types:
+--   INTEGER  → INT64
+--   VARCHAR  → STRING
+--   DOUBLE   → FLOAT64
+--   PRIMARY KEY → table-level PRIMARY KEY(col) NOT ENFORCED
 
 CREATE TABLE IF NOT EXISTS books (
-    rank                INTEGER,
+    "rank"              INTEGER,
     title               VARCHAR,
     author              VARCHAR,
     category            VARCHAR,
